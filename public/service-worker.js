@@ -1,5 +1,8 @@
 const FILES_TO_CACHE = [
     "./index.html",
+    '/js/index.js',
+    '/js/idb.js',
+    '/manifest.json',
     "./public/css/styles.css",
     "./public/icons/icon-72x72.png",
     "./public/icons/icon-96x96.png",
@@ -18,7 +21,7 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 // installation
 
 self.addEventListener('install', function (e) {
-e.waitUntil(
+    e.waitUntil(
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.addAll(FILES_TO_CACHE)
         })
@@ -36,7 +39,7 @@ self.addEventListener('activate', function (e) {
             cacheKeepList.push(CACHE_NAME);
             // promise resolves when old versions of cache have been deleted
             return Promise.all(
-                keyList.map(function(key,i) {
+                keyList.map(function (key, i) {
                     if (cacheKeepList.indexOf(key) === -1) {
                         return caches.delete(keyList[i])
                     }
