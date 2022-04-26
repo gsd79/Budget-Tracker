@@ -11,7 +11,7 @@ request.onupgradeneeded = function(e) {
     // set ref to database
     const db = e.target.result;
     // create object store for db budget_tracker
-    db.createObjectStore('budget_tracker',{autoIncrement:true});
+    db.createObjectStore('new_entry',{autoIncrement:true});
 }
  // if above successful
 request.onsuccess = function(e) {
@@ -19,7 +19,7 @@ request.onsuccess = function(e) {
 
     // check if online and run function to send local db to to api
     if(navigator.online) {
-        sendTransaction();
+        uploadEntry();
     }
 };
 // if above unsuccessful
@@ -37,3 +37,49 @@ function saveRecord(record) {
     // add new transaction to object store
     budgetObjectStore.add(record);
 }
+
+function uploadEntry() {
+    // open a transaction on your db
+    const transaction = db.transaction(['new_entry'], 'readwrite');
+
+    // access your object store
+    const budgetObjectStore = transaction.objectStore('new_entry');
+
+    // get all records from store and set to a variable
+    const getAll = budgetObjectStore.getAll();
+    // upon a successful .getAll() execution, run this function
+        getAll.onsuccess = function () {
+            // if there was data in indexedDb's store, let's send it to the api server
+            if (getAll.result.length > 0) {
+                fetch('/api/transaction', {
+                    method: 'POST',
+                    body: JSON.stringify(getAll.result),
+                    headers: {
+                        Accept: 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => response.json())
+                    .then(serverResponse => {
+                        if (serverResponse.message) {
+                            throw new Error(serverResponse);
+                        }
+                        // open one more transaction
+                        const transaction = db.transaction(['new_entry'], 'readwrite');
+                        // access the new_entry object store
+                        const budgetObjectStore = transaction.objectStore('new_entry');
+                        // clear all items in your store
+                        budgetObjectStore.clear();
+
+                        alert('All saved transactions have been submitted!');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        };
+    }
+
+
+// listen for app coming back online
+window.addEventListener('online', uploadEntry);
