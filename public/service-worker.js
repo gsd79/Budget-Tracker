@@ -5,7 +5,7 @@ const FILES_TO_CACHE = [
     './js/idb.js',
 ];
 
-const APP_PREFIX = 'budget-tracker';
+const APP_PREFIX = 'budget';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
 

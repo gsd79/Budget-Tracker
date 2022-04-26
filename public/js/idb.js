@@ -7,15 +7,15 @@ const request=indexedDB.open('budget_tracker',1);
 // add the object store
 
 // if database version changes from 1, then...
-request.onupgradeneeded = function(e) {
+request.onupgradeneeded = function(event) {
     // set ref to database
-    const db = e.target.result;
+    const db = event.target.result;
     // create object store for db budget_tracker
     db.createObjectStore('new_entry',{autoIncrement:true});
 }
  // if above successful
-request.onsuccess = function(e) {
-    db = e.target.result;
+request.onsuccess = function(event) {
+    db = event.target.result;
 
     // check if online and run function to send local db to to api
     if(navigator.online) {
@@ -23,8 +23,8 @@ request.onsuccess = function(e) {
     }
 };
 // if above unsuccessful
-request.onerror= function(e) {
-    console.log(e.target.errCode);
+request.onerror= function(event) {
+    console.log(event.target.errCode);
 }
 
 // triggered if information added offline
