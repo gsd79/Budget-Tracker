@@ -50,11 +50,12 @@ self.addEventListener('activate', function (e) {
 });
 
 // waiting/idle  retrieve info from cache 'fetch'
-self.addEventListener('fetch', function (e) {
-    e.respondWith(
-        // if request is stored in cache, trigger
-        caches.match(e.request).then(function (request) {
-            return request || fetch(e.request)
-        })
-    );
-})
+self.addEventListener('fetch', function (e) {    
+        if (request) {
+        console.log('responding with cache : ' + e.request.url)
+        return request
+        } else {
+            console.log('file is not cached, fetching : ' + e.request.url)
+            return fetch(e.request)
+            }
+});
