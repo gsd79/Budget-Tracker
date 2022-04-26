@@ -1,7 +1,7 @@
 // db connection variable
 let db;
 // establish connection to db with version #
-const request=indexDB('budget_tracker',1);
+const request=indexedDB.open('budget_tracker',1);
 
 
 // add the object store
