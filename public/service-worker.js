@@ -1,5 +1,5 @@
 const FILES_TO_CACHE = [
-    './index.html',
+    'index.html',
     './css/styles.css',
     './js/index.js',
     './js/idb.js',
