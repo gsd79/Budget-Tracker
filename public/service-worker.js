@@ -17,8 +17,8 @@ self.addEventListener('install', function (e) {
         caches.open(CACHE_NAME).then(function (cache) {
             return cache.addAll(FILES_TO_CACHE)
         })
-    )
-})
+    );
+});
 
 // activation
 self.addEventListener('activate', function (e) {
@@ -55,5 +55,5 @@ self.addEventListener('fetch', function (e) {
                 return fetch(e.request)
             }
         })
-    )
-})
+    );
+});
