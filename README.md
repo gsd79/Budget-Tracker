@@ -3,10 +3,8 @@
 ## Description
   This application is a progressive web application budget tracker. It features both online and offline cababilities and is mobile forward. 
 
-## Walkthrough Video
-https://drive.google.com/file/d/13qAd-q7IqtZkC2dzs2SflXIiShjOklY6/view
 
- ![walkthroughvideo](./assets/smvideo.gif)
+ ![walkthroughvideo](./public/img/budgettrackgsd.herokuapp.com_.png)
  
 
 
