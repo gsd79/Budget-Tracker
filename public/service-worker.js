@@ -1,11 +1,11 @@
 const FILES_TO_CACHE = [
-    "./index.html",
+    './index.html',
     './manifest.json',
     './js/index.js',
-    './js/idb.js',
+    './js/idb.js'
 ];
 
-const APP_PREFIX = 'budget';
+const APP_PREFIX = 'Budget-';
 const VERSION = 'version_01';
 const CACHE_NAME = APP_PREFIX + VERSION;
 

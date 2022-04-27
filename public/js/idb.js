@@ -32,7 +32,7 @@ function saveRecord(record) {
     const transaction=db.transaction(['new_entry', 'readwrite']);
 
     // set variable for object store placement of new_transaction
-    const budgetObjectStore= transaction.budgetObjectStore('new_entry');
+    const budgetObjectStore= transaction.ObjectStore('new_entry');
 
     // add new transaction to object store
     budgetObjectStore.add(record);
